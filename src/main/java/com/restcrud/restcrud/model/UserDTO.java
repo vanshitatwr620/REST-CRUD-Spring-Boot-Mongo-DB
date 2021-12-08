@@ -2,8 +2,12 @@ package com.restcrud.restcrud.model;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
+
+import java.io.Serializable;
 import java.util.*;
 
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.AllArgsConstructor;
@@ -18,14 +22,26 @@ import lombok.Setter;
 @Document(collection="users")
 
 
-
-public class UserDTO {
+//@EntityScan
+public class UserDTO implements Serializable {
 	private String id;
+	
+	@NotNull(message = "user cannot be null")
 	private String user;
+	
+	@NotNull(message = "occupation cannot be null")
 	private String occupation;
+	
+	@NotNull(message = "completed cannot be null")
 	private Boolean completed;
+	
 	private Date createdAt;
 	private Date updatedAt;
+	public UserDTO(String user, String occupation, Boolean completed) {
+		this.user = user;
+		this.occupation = occupation;
+		this.completed = completed;
+	}
 	public void setCreatedAt(Date date) {
 		this.createdAt = date;
 		
@@ -65,6 +81,14 @@ public class UserDTO {
 	public void setCompleted(Boolean completed) {
 		this.completed = completed;
 	}
+	@Override
+	public String toString() {
+		return "UserDTO [id=" + id + ", user=" + user + ", occupation=" + occupation + ", completed=" + completed
+				+ ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
+	}
+	
+	
+	
 	
 	
 	

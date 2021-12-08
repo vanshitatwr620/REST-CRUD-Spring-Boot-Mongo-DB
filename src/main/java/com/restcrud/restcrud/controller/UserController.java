@@ -65,7 +65,7 @@ public class UserController {
 	}
 	
 	
-	@PutMapping("/users/{id}")
+	@PutMapping(name = "/users/{id}", consumes="application/json", produces = "application/json")
 	public ResponseEntity<?> updateById(@PathVariable("id") String id, @RequestBody UserDTO user) {
 		Optional<UserDTO> userOptional = userRepo.findById(id);
 		if(userOptional.isPresent()) {
